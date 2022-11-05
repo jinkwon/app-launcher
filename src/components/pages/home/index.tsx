@@ -5,6 +5,8 @@ import React, {
 } from 'react';
 import {
   emit,
+  isAndroid,
+  isIOS,
   listener
 } from './app-utils'
 import styles from './index.module.scss'
@@ -18,11 +20,9 @@ interface Props {
   children?: React.ReactNode;
 }
 const Home: React.FC<Props> = (props) => {
-  const [agentInfo, setAgentInfo] = useState<any>({});
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
-    setAgentInfo(new UAParser().getResult());
 
     listener((a: any) => {
       setPayload({...a});
@@ -37,8 +37,10 @@ const Home: React.FC<Props> = (props) => {
 
   return (<>
     <div className={styles.container}>
-
       <main className={styles.main}>
+        {isAndroid() && <h2>android</h2>}
+        {isIOS() && <h2>ios</h2>}
+
         <Button variant={'contained'} onClick={handleLogin}>
           send message
         </Button>
@@ -51,8 +53,9 @@ const Home: React.FC<Props> = (props) => {
         </div>
 
         <div className={styles.box}>
+
           <div className={styles.title}>UA info</div>
-          {JSON.stringify(agentInfo)}
+          {JSON.stringify(new UAParser().getResult())}
         </div>
         <Code/>
       </main>
