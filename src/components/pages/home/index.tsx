@@ -1,25 +1,26 @@
-import { Button } from '@mui/material'
-import {
+import { Button } from '@mui/material';
+import React, {
   useEffect,
   useState
 } from 'react';
 import {
   emit,
   listener
-} from '../src/app-utils'
-
-import styles from '../styles/Home.module.css'
+} from './app-utils'
+import styles from './index.module.scss'
 
 enum EventType {
   Message = 'message'
 }
 
-export default function Home() {
+interface Props {
+  children?: React.ReactNode;
+}
+const Home: React.FC<Props> = (props) => {
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
-
-    listener((a) => {
+    listener((a: any) => {
       setPayload({...a});
     });
   }, []);
@@ -30,7 +31,7 @@ export default function Home() {
     });
   };
 
-  return (
+  return (<>
     <div className={styles.container}>
       <main className={styles.main}>
         {JSON.stringify(payload)}
@@ -39,6 +40,7 @@ export default function Home() {
         </Button>
       </main>
     </div>
-  )
-}
+  </>);
+};
 
+export default Home;
