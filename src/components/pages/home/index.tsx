@@ -34,10 +34,17 @@ const Home: React.FC<Props> = (props) => {
   return (<>
     <div className={styles.container}>
       <main className={styles.main}>
-        {JSON.stringify(payload)}
         <Button variant={'contained'} onClick={handleLogin}>
           send message
         </Button>
+
+        <div className={styles.title}>
+          paypload
+        </div>
+
+        <div className={styles.debug}>
+          {JSON.stringify(payload)}
+        </div>
       </main>
     </div>
   </>);
