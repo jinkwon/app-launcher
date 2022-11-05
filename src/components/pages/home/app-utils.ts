@@ -7,7 +7,6 @@ export function moveToApp(props: {
   stageId: string,
 }) {
 
-
 }
 
 /**
