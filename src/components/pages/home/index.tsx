@@ -8,6 +8,7 @@ import {
   listener
 } from './app-utils'
 import styles from './index.module.scss'
+import UAParser from 'ua-parser-js'
 
 enum EventType {
   Message = 'message'
@@ -17,6 +18,7 @@ interface Props {
   children?: React.ReactNode;
 }
 const Home: React.FC<Props> = (props) => {
+  const [agentInfo, setAgentInfo] = useState<any>(new UAParser().getResult());
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
@@ -35,20 +37,21 @@ const Home: React.FC<Props> = (props) => {
     <div className={styles.container}>
 
       <main className={styles.main}>
-        {JSON.stringify()}
-
         <Button variant={'contained'} onClick={handleLogin}>
           send message
         </Button>
 
-        <div className={styles.title}>
-          payload
+        <div className={styles.box}>
+          <div className={styles.title}>payload</div>
+          <div className={styles.debug}>
+            {JSON.stringify(payload)}
+          </div>
         </div>
 
-        <div className={styles.debug}>
-          {JSON.stringify(payload)}
+        <div className={styles.box}>
+          <div className={styles.title}>UA info</div>
+          {JSON.stringify(agentInfo)}
         </div>
-
         <Code/>
       </main>
     </div>
