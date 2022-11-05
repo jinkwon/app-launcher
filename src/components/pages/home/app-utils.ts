@@ -1,3 +1,16 @@
+import UAParser from 'ua-parser-js'
+
+export function isMobile(parser: UAParser) {
+  return isIOS(parser) || isAndroid(parser);
+}
+
+export function isIOS(parser: UAParser = new UAParser()) {
+  return parser?.getOS().name === 'iOS';
+}
+
+export function isAndroid(parser: UAParser = new UAParser()) {
+  return parser?.getOS().name === 'Android';
+}
 
 /**
  * intent 호출
