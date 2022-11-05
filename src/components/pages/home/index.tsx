@@ -18,10 +18,12 @@ interface Props {
   children?: React.ReactNode;
 }
 const Home: React.FC<Props> = (props) => {
-  const [agentInfo, setAgentInfo] = useState<any>(new UAParser().getResult());
+  const [agentInfo, setAgentInfo] = useState<any>({});
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
+    setAgentInfo(new UAParser().getResult());
+
     listener((a: any) => {
       setPayload({...a});
     });
