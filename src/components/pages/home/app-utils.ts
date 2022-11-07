@@ -49,7 +49,7 @@ export function emit(type: string, payload: any) {
   }
 }
 
-export function bindingAppUtils() {
+export function bindAppUtils() {
   if (!window?.bstage) {
     window.bstage = {};
   }

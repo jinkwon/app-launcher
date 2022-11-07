@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import LogsContainer from './templates/LogsContainer';
 import {
-  bindingAppUtils,
+  bindAppUtils,
   bindListener,
   emit,
   isAndroid,
@@ -44,7 +44,7 @@ const Home: React.FC<Props> = (props) => {
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
-    bindingAppUtils();
+    bindAppUtils();
 
     const handlers = [
       bindListener(AppEventType.Message, ({ type, payload }) => {
