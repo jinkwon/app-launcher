@@ -27,6 +27,10 @@ enum AppEventType {
   Message = 'message'
 }
 
+interface StageInfo {
+  stageId: string;
+}
+
 const stageInfo = {
   stageId: 'bmf'
 };
@@ -34,13 +38,12 @@ const stageInfo = {
 interface Props {
   children?: React.ReactNode;
 }
+
 const Home: React.FC<Props> = (props) => {
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
     bindingAppUtils();
-
-    console.log('initialized', JSON.stringify(window?.['bstage']));
     const cb = ({ type, payload }: any) => {
       console.log('from-app', type, payload);
       setPayload({
@@ -49,10 +52,16 @@ const Home: React.FC<Props> = (props) => {
       });
     };
 
-    const handler = bindListener('message',cb);
+    const handler = bindListener(AppEventType.Message, cb);
 
-    return  () => {
-      unbindListener('message', handler);
+    emit(EventType.IsBstage, {
+      stageInfo,
+    });
+
+    console.log('initialized', JSON.stringify(window?.['bstage']));
+
+    return () => {
+      unbindListener(AppEventType.Message, handler);
     };
   }, []);
 
@@ -64,11 +73,10 @@ const Home: React.FC<Props> = (props) => {
           test: 1,
         }
       }));
-    } catch(e) {
+    } catch (e) {
 
     }
   };
-
 
   const handleIsBstage = () => {
     // 최초 접근시 stage 정보 제공
@@ -78,8 +86,13 @@ const Home: React.FC<Props> = (props) => {
   };
 
   const handleLogin = () => {
+    const accessToken = '';
+    const refreshToken = '';
+
     emit(EventType.Login, {
       stageInfo,
+      accessToken,
+      refreshToken,
     });
   };
 

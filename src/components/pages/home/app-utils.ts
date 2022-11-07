@@ -68,6 +68,7 @@ export function bindingAppUtils() {
   window.bstage.emit = emit;
 }
 
+
 export function bindListener(type: string, cb: ({ type, payload }: { type: string, payload: any }) => void) {
   const handler = (e: any) => {
     cb({
