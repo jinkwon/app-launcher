@@ -51,21 +51,21 @@ export function emit(type: string, payload: any) {
 
 export function bindingAppUtils() {
   if (!window?.bstage) {
-    const emit = (message: string) => {
-      try {
-        const doc = JSON.parse(message);
-        const evt = new CustomEvent(`bstage.${doc.type}`, {
-          detail: doc?.payload
-        });
-        window.dispatchEvent(evt);
-      } catch(e) {
-        console.log(e);
-      }
-    };
-    window.bstage = {
-      emit,
-    };
+    window.bstage = {};
   }
+
+  const emit = (message: string) => {
+    try {
+      const doc = JSON.parse(message);
+      const evt = new CustomEvent(`bstage.${doc.type}`, {
+        detail: doc?.payload
+      });
+      window.dispatchEvent(evt);
+    } catch(e) {
+      console.log(e);
+    }
+  };
+  window.bstage.emit = emit;
 }
 
 export function bindListener(type: string, cb: ({ type, payload }: { type: string, payload: any }) => void) {
