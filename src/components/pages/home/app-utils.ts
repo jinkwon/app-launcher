@@ -31,23 +31,23 @@ const namespace = 'bstage';
  * app 에 json object 전달
  */
 export function emit(type: string, payload: any) {
-
-  const message = {
-    type,
-    payload,
-  };
-
   try {
+    const obj = {
+      type,
+      payload,
+    };
+
+    const message = JSON.stringify(obj);
+
     if (isAndroid()) {
-      window?.[namespace]?.appBstage?.(type, payload);
+      window?.[namespace]?.appBstage?.(message);
     } else if (isIOS()) {
       window?.webkit?.messageHandlers?.[namespace]?.postMessage?.(message);
     }
+    console.log(obj?.type, obj?.payload);
   } catch(e) {
     console.log(e);
   }
-
-  console.log(message?.type, message);
 }
 
 export function listener(cb: (data: any) => void) {
