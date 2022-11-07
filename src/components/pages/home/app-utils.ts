@@ -24,7 +24,6 @@ export function openBstageApp({ stageId }: {
   window.location.replace(appScheme);
 }
 
-
 const namespace = 'bstage';
 
 /**

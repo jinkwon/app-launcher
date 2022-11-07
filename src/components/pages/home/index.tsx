@@ -32,8 +32,7 @@ const Home: React.FC<Props> = (props) => {
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
-    console.log('initialized');
-    console.log('window', JSON.stringify(window?.['Android']));
+    console.log('initialized', JSON.stringify(window?.['bstage']));
     listener((a: any) => {
       setPayload({...a});
     });
