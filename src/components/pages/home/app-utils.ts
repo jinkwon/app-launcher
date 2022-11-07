@@ -36,11 +36,16 @@ export function emit(type: string, payload: any) {
     payload,
   };
 
-  if (isAndroid()) {
-    window?.[namespace]?.appBstage?.(message);
-  } else if (isIOS()) {
-    window?.webkit?.messageHandlers?.[namespace]?.postMessage?.(message);
+  try {
+    if (isAndroid()) {
+      window?.[namespace]?.appBstage?.(message);
+    } else if (isIOS()) {
+      window?.webkit?.messageHandlers?.[namespace]?.postMessage?.(message);
+    }
+  } catch(e) {
+    console.log(e);
   }
+
   console.log(message?.type, message);
 }
 
