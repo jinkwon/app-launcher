@@ -39,7 +39,7 @@ export function emit(type: string, payload: any) {
 
   try {
     if (isAndroid()) {
-      window?.[namespace]?.appBstage?.(message);
+      window?.[namespace]?.appBstage?.(type, payload);
     } else if (isIOS()) {
       window?.webkit?.messageHandlers?.[namespace]?.postMessage?.(message);
     }
