@@ -15,8 +15,15 @@ import styles from './index.module.scss'
 import UAParser from 'ua-parser-js'
 
 enum EventType {
-  Message = 'message'
+  Login = 'login',
+  Logout = 'logout',
+  Close = 'close',
+  IsBstage = 'isBstage',
 }
+
+const stageInfo = {
+  stageId: 'bmf'
+};
 
 interface Props {
   children?: React.ReactNode;
@@ -25,6 +32,10 @@ const Home: React.FC<Props> = (props) => {
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
+    // 최초 접근시 stage 정보 제공
+    emit(EventType.IsBstage, {
+      stageInfo,
+    });
 
     listener((a: any) => {
       setPayload({...a});
@@ -32,8 +43,20 @@ const Home: React.FC<Props> = (props) => {
   }, []);
 
   const handleLogin = () => {
-    emit(EventType.Message, {
-      data: 'test'
+    emit(EventType.Login, {
+      stageInfo,
+    });
+  };
+
+  const handleLogout = () => {
+    emit(EventType.Logout, {
+      stageInfo,
+    });
+  };
+
+  const handleClose = () => {
+    emit(EventType.Close, {
+      stageInfo,
     });
   };
 
@@ -51,7 +74,14 @@ const Home: React.FC<Props> = (props) => {
 
         <div className={styles.buttons}>
           <Button variant={'contained'} onClick={handleLogin}>
-            send message
+            로그인할꼬야
+          </Button>
+
+          <Button variant={'contained'} onClick={handleLogout}>
+            로그아웃할꼬야
+          </Button>
+          <Button variant={'contained'} onClick={handleClose}>
+            나갈꼬야
           </Button>
 
           <Button color={'secondary'} variant={'contained'} onClick={handleOpenApp}>

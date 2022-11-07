@@ -25,7 +25,8 @@ interface CSSCustomProperties extends React.CSSProperties {
 }
 
 interface Window {
-  __BSTAGE_APP_SEND: any;
+  bstage: any;
+  webview: any;
 }
 
 declare var window: Window;

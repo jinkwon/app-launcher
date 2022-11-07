@@ -29,16 +29,29 @@ export function openBstageApp({ stageId }: {
   window.location.replace(appScheme);
 }
 
+
+
 /**
  * app 에 json object 전달
  */
 export function emit(type: string, payload: any) {
-  window?.__BSTAGE_APP_SEND?.(type, payload);
-  console.log(type, payload);
+  const namespace = 'bstage';
+
+  const message = {
+    type,
+    payload,
+  };
+
+  if (isAndroid()) {
+    window?.[namespace]?.appBstage?.(message);
+  } else if (isIOS()) {
+    window?.webview?.webkit?.messageHandlers?.[namespace]?.postMessage?.(message);
+  }
+  console.log(message?.type, message);
 }
 
 export function listener(cb: (data: any) => void) {
-  window.addEventListener('onmessage', (data) => {
+  window.addEventListener('bstage_message', (data) => {
     console.log(data);
     cb(data);
   });
