@@ -29,7 +29,7 @@ export function openBstageApp({ stageId }: {
  * app 에 json object 전달
  */
 export function emit(type: string, payload: any) {
-  const namespace = 'bstage';
+  const namespace = 'Android';
 
   const message = {
     type,
@@ -40,7 +40,7 @@ export function emit(type: string, payload: any) {
     if (isAndroid()) {
       window?.[namespace]?.appBstage?.(message);
     } else if (isIOS()) {
-      window?.webkit?.messageHandlers?.[namespace]?.postMessage?.(message);
+      window?.webkit?.messageHandlers?.['bstage']?.postMessage?.(message);
     }
   } catch(e) {
     console.log(e);

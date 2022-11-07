@@ -26,6 +26,9 @@ interface CSSCustomProperties extends React.CSSProperties {
 
 interface Window {
   bstage: any;
+  Android: any;
+  android: any;
+
   webkit: any;
 }
 
