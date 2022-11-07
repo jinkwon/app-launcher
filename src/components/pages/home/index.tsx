@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useState
 } from 'react';
+import LogsContainer from './templates/LogsContainer';
 import {
   emit,
   isAndroid,
@@ -66,11 +67,14 @@ const Home: React.FC<Props> = (props) => {
         </div>
 
         <div className={styles.box}>
-
           <div className={styles.title}>UA info</div>
           {JSON.stringify(new UAParser().getResult())}
         </div>
         <Code/>
+
+        <div className={styles.box}>
+          <LogsContainer/>
+        </div>
       </main>
     </div>
   </>);
