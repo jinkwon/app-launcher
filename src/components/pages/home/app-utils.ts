@@ -19,7 +19,7 @@ export function isAndroid(parser: UAParser = new UAParser()) {
 export function openBstageApp({ stageId }: {
   stageId: string,
 }) {
-  let appScheme = `bstage://browser/home?stageId=${stageId}`;
+  const appScheme = `bstage://browser/home?stageId=${stageId}`;
   console.log(appScheme);
   window.location.replace(appScheme);
 }
