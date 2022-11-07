@@ -32,6 +32,7 @@ const Home: React.FC<Props> = (props) => {
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
+    console.log('initialized');
     listener((a: any) => {
       setPayload({...a});
     });
