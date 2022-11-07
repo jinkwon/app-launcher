@@ -19,16 +19,10 @@ export function isAndroid(parser: UAParser = new UAParser()) {
 export function openBstageApp({ stageId }: {
   stageId: string,
 }) {
-  let appScheme = '';
-
-  if (isIOS()) {
-    appScheme = `bmf://bstage/open?stageId=${stageId}`;
-  } else if (isAndroid()) {
-    appScheme = `intent://bstage/open?stageId=${stageId}`;
-  }
+  let appScheme = `bstage://browser/home?stageId=${stageId}`;
+  console.log(appScheme);
   window.location.replace(appScheme);
 }
-
 
 
 /**
