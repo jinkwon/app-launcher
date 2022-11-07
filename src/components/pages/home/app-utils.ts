@@ -19,7 +19,14 @@ export function isAndroid(parser: UAParser = new UAParser()) {
 export function moveToApp(props: {
   stageId: string,
 }) {
+  let appScheme = '';
 
+  if (isIOS()) {
+    appScheme = `bmf://bstage/open`;
+  } else if (isAndroid()) {
+    appScheme = `intent://bstage/open`;
+  }
+  window.location.replace(appScheme);
 }
 
 /**
