@@ -103,13 +103,15 @@ const Home: React.FC<Props> = (props) => {
         </div>
 
         <div className={styles.box}>
+          <LogsContainer/>
+        </div>
+
+        <div className={styles.box}>
           <div className={styles.title}>UA info</div>
           {JSON.stringify(new UAParser().getResult())}
         </div>
 
-        <div className={styles.box}>
-          <LogsContainer/>
-        </div>
+
       </main>
     </div>
   </>);
