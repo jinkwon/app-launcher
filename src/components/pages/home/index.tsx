@@ -106,7 +106,6 @@ const Home: React.FC<Props> = (props) => {
           <div className={styles.title}>UA info</div>
           {JSON.stringify(new UAParser().getResult())}
         </div>
-        <Code/>
 
         <div className={styles.box}>
           <LogsContainer/>
@@ -117,25 +116,3 @@ const Home: React.FC<Props> = (props) => {
 };
 
 export default Home;
-
-const Code = () => {
-
-  return <pre style={{
-    backgroundColor: '#efefef',
-  }}>{`
-/**
- * app 에 json object 전달
- */
-export function emit(type: string, payload: any) {
-  window?.__BSTAGE_APP_SEND?.(type, payload);
-  console.log(type, payload);
-}
-
-export function listener(cb: (data: any) => void) {
-  window.addEventListener('onmessage', (data) => {
-    console.log(data);
-    cb(data);
-  });
-}
-  `}</pre>;
-};
