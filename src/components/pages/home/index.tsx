@@ -32,15 +32,17 @@ const Home: React.FC<Props> = (props) => {
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
-    // 최초 접근시 stage 정보 제공
-    emit(EventType.IsBstage, {
-      stageInfo,
-    });
-
     listener((a: any) => {
       setPayload({...a});
     });
   }, []);
+
+  const handleIsBstage = () => {
+    // 최초 접근시 stage 정보 제공
+    emit(EventType.IsBstage, {
+      stageInfo,
+    });
+  };
 
   const handleLogin = () => {
     emit(EventType.Login, {
@@ -73,6 +75,10 @@ const Home: React.FC<Props> = (props) => {
         {isIOS() && <h2>ios</h2>}
 
         <div className={styles.buttons}>
+          <Button variant={'contained'} onClick={handleIsBstage}>
+            isBstage
+          </Button>
+
           <Button variant={'contained'} onClick={handleLogin}>
             로그인할꼬야
           </Button>
