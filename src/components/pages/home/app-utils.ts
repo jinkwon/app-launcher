@@ -79,7 +79,10 @@ export function bindListener(type: string, cb: ({ type, payload }: { type: strin
     });
   };
   window.addEventListener(`bstage.${type}`, handler);
-  return handler;
+  return {
+    type,
+    handler,
+  };
 }
 
 export function unbindListener(type: string, cb: any) {

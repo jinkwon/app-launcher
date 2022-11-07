@@ -24,15 +24,16 @@ enum EventType {
 }
 
 enum AppEventType {
-  Message = 'message'
+  Message = 'message',
+  IsBstage = 'isBstage',
 }
 
 interface StageInfo {
   stageId: string;
 }
 
-const stageInfo = {
-  stageId: 'bmf'
+const stageInfo: StageInfo = {
+  stageId: 'bmf',
 };
 
 interface Props {
@@ -44,15 +45,23 @@ const Home: React.FC<Props> = (props) => {
 
   useEffect(() => {
     bindingAppUtils();
-    const cb = ({ type, payload }: any) => {
-      console.log('from-app', type, payload);
-      setPayload({
-        type,
-        payload,
-      });
-    };
 
-    const handler = bindListener(AppEventType.Message, cb);
+    const handlers = [
+      bindListener(AppEventType.Message, ({ type, payload }) => {
+        console.log('from-app', type, payload);
+        setPayload({
+          type,
+          payload,
+        });
+      }),
+      bindListener(AppEventType.IsBstage, ({ type, payload }) => {
+        console.log('from-app', type, payload);
+        setPayload({
+          type,
+          payload,
+        });
+      }),
+    ];
 
     emit(EventType.IsBstage, {
       stageInfo,
@@ -61,7 +70,7 @@ const Home: React.FC<Props> = (props) => {
     console.log('initialized', JSON.stringify(window?.['bstage']));
 
     return () => {
-      unbindListener(AppEventType.Message, handler);
+      handlers.forEach(h => unbindListener(h.type, h.handler))
     };
   }, []);
 
