@@ -45,7 +45,7 @@ export function emit(type: string, payload: any) {
 }
 
 export function listener(cb: (data: any) => void) {
-  window.addEventListener('bstage_message', (data) => {
+  window.addEventListener('bstage.message', (data) => {
     console.log(data);
     cb(data);
   });
