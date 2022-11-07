@@ -42,7 +42,7 @@ const Home: React.FC<Props> = (props) => {
 
     console.log('initialized', JSON.stringify(window?.['bstage']));
     const cb = ({ type, payload }: any) => {
-      console.log(type, payload);
+      console.log('from-app', type, payload);
       setPayload({
         type,
         payload,

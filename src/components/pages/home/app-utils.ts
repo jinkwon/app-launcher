@@ -43,7 +43,7 @@ export function emit(type: string, payload: any) {
     } else if (isIOS()) {
       window?.webkit?.messageHandlers?.[namespace]?.postMessage?.(message);
     }
-    console.log(obj?.type, obj?.payload);
+    console.log('from-web', obj?.type, obj?.payload);
   } catch(e) {
     console.log(e);
   }
