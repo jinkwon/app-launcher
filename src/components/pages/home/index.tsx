@@ -7,7 +7,8 @@ import {
   emit,
   isAndroid,
   isIOS,
-  listener
+  listener,
+  openBstageApp
 } from './app-utils'
 import styles from './index.module.scss'
 import UAParser from 'ua-parser-js'
@@ -35,15 +36,27 @@ const Home: React.FC<Props> = (props) => {
     });
   };
 
+  const handleOpenApp = () => {
+    openBstageApp({
+      stageId: 'bmf'
+    });
+  };
+
   return (<>
     <div className={styles.container}>
       <main className={styles.main}>
         {isAndroid() && <h2>android</h2>}
         {isIOS() && <h2>ios</h2>}
 
-        <Button variant={'contained'} onClick={handleLogin}>
-          send message
-        </Button>
+        <div className={styles.buttons}>
+          <Button variant={'contained'} onClick={handleLogin}>
+            send message
+          </Button>
+
+          <Button color={'secondary'} variant={'contained'} onClick={handleOpenApp}>
+            Open App
+          </Button>
+        </div>
 
         <div className={styles.box}>
           <div className={styles.title}>payload</div>

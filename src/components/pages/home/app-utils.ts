@@ -16,15 +16,15 @@ export function isAndroid(parser: UAParser = new UAParser()) {
  * intent 호출
  * @param props
  */
-export function moveToApp(props: {
+export function openBstageApp({ stageId }: {
   stageId: string,
 }) {
   let appScheme = '';
 
   if (isIOS()) {
-    appScheme = `bmf://bstage/open`;
+    appScheme = `bmf://bstage/open?stageId=${stageId}`;
   } else if (isAndroid()) {
-    appScheme = `intent://bstage/open`;
+    appScheme = `intent://bstage/open?stageId=${stageId}`;
   }
   window.location.replace(appScheme);
 }
