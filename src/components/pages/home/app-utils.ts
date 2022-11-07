@@ -25,11 +25,12 @@ export function openBstageApp({ stageId }: {
 }
 
 
+const namespace = 'bstage';
+
 /**
  * app 에 json object 전달
  */
 export function emit(type: string, payload: any) {
-  const namespace = 'bstage';
 
   const message = {
     type,
@@ -50,7 +51,7 @@ export function emit(type: string, payload: any) {
 }
 
 export function listener(cb: (data: any) => void) {
-  window.addEventListener('bstage.message', (data) => {
+  window.addEventListener('bstage_message', (data) => {
     console.log(data);
     cb(data);
   });
