@@ -5,11 +5,13 @@ import React, {
 } from 'react';
 import LogsContainer from './templates/LogsContainer';
 import {
+  bindingAppUtils,
+  bindListener,
   emit,
   isAndroid,
   isIOS,
-  listener,
-  openBstageApp
+  openBstageApp,
+  unbindListener
 } from './app-utils'
 import styles from './index.module.scss'
 import UAParser from 'ua-parser-js'
@@ -19,6 +21,10 @@ enum EventType {
   Logout = 'logout',
   Close = 'close',
   IsBstage = 'isBstage',
+}
+
+enum AppEventType {
+  Message = 'message'
 }
 
 const stageInfo = {
@@ -32,11 +38,37 @@ const Home: React.FC<Props> = (props) => {
   const [payload, setPayload] = useState<any>({});
 
   useEffect(() => {
+    bindingAppUtils();
+
     console.log('initialized', JSON.stringify(window?.['bstage']));
-    listener((a: any) => {
-      setPayload({...a});
-    });
+    const cb = ({ type, payload }: any) => {
+      console.log(type, payload);
+      setPayload({
+        type,
+        payload,
+      });
+    };
+
+    const handler = bindListener('message',cb);
+
+    return  () => {
+      unbindListener('message', handler);
+    };
   }, []);
+
+  const handleTestEvent = () => {
+    try {
+      window?.bstage?.emit(JSON.stringify({
+        type: AppEventType.Message,
+        payload: {
+          test: 1,
+        }
+      }));
+    } catch(e) {
+
+    }
+  };
+
 
   const handleIsBstage = () => {
     // 최초 접근시 stage 정보 제공
@@ -94,6 +126,11 @@ const Home: React.FC<Props> = (props) => {
           <Button color={'secondary'} variant={'contained'} onClick={handleOpenApp}>
             Open App
           </Button>
+
+          <Button color={'secondary'} variant={'contained'} onClick={handleTestEvent}>
+            앱 이벤트 테스트
+          </Button>
+
         </div>
 
         <div className={styles.box}>
