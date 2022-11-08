@@ -163,6 +163,10 @@ const Home: React.FC<Props> = (props) => {
         </div>
 
         <div className={styles.box}>
+          {JSON.stringify(document.cookie)}
+        </div>
+
+        <div className={styles.box}>
           <LogsContainer/>
         </div>
 
